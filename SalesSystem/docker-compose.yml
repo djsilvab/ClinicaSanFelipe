@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: system_sales_sqlserver
+    environment:
+      MSSQL_SA_PASSWORD: "SecurePass2026!"
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer"
+    ports:
+      - "2434:1433"
+    volumes:
+      - sqlserver_systemsales_data:/var/opt/mssql
+    restart: unless-stopped
+
+volumes:
+  sqlserver_systemsales_data:
