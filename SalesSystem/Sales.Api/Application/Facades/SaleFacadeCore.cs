@@ -5,12 +5,12 @@ using Sales.Api.Infrastructure.Persistence;
 
 namespace Sales.Api.Application.Facades
 {
-    public class SaleFacade : ISaleFacade
+    public class SaleFacadeCore : ISaleFacade
     {
         private readonly ISaleRepository _repository;
         private readonly SalesDbContext _context;
 
-        public SaleFacade(ISaleRepository repository, SalesDbContext context)
+        public SaleFacadeCore(ISaleRepository repository, SalesDbContext context)
         {
             _repository = repository;
             _context = context;

@@ -2,6 +2,7 @@
 using Sales.Api.Application.Interfaces;
 using Sales.Api.Domain.Entities;
 using Sales.Api.Infrastructure.Persistence;
+using Sales.Api.Application.DTOs;
 
 namespace Sales.Api.Repositories
 {
@@ -39,11 +40,47 @@ namespace Sales.Api.Repositories
                                     .SumAsync(x => (int?)x.Cantidad)?? 0;
 
             return entradas - salidas;
-        }
+        }       
 
         public async Task<List<SaleCab>> GetSalesAsync()
         {
             return await _context.SaleCab.Include(x => x.Details).ToListAsync();
+        }
+
+        public async Task<List<KardexDto>> GetKardexAsync()
+        {
+            var movimientos = await _context.MovementDet
+                                    .Include(x => x.MovementCab)
+                                    .OrderBy(x => x.MovementCab!.Fec_registro)
+                                    .ToListAsync();
+
+            var result = new List<KardexDto>();
+
+            var stockPorProducto = new Dictionary<int, int>();
+
+            foreach (var item in movimientos)
+            {
+                int signo = item.MovementCab!.Id_TipoMovimiento == 1 ? 1 : -1;
+
+                if (!stockPorProducto.ContainsKey(item.Id_Producto))
+                {
+                    stockPorProducto[item.Id_Producto] = 0;
+                }
+
+                stockPorProducto[item.Id_Producto] += signo * item.Cantidad;
+
+                result.Add(new KardexDto
+                {
+                    ProductoId = item.Id_Producto,
+                    Fecha = item.MovementCab.Fec_registro,
+                    TipoMovimiento = item.MovementCab.Id_TipoMovimiento == 1 ? "Entrada" : "Salida",
+                    Cantidad = item.Cantidad,
+                    DocumentoOrigen = item.MovementCab.Id_DocumentoOrigen,
+                    StockActual = stockPorProducto[item.Id_Producto]
+                });
+            }
+           
+            return result;
         }
     }
 }

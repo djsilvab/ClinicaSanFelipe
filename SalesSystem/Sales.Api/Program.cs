@@ -7,6 +7,7 @@ using Sales.Api.Infrastructure.Persistence;
 using Sales.Api.Application.Facades;
 using Sales.Api.Application.Interfaces;
 using Sales.Api.Repositories;
+using Sales.Api.Application.Decorators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -60,7 +61,12 @@ builder.Services.AddDbContext<SalesDbContext>(
                 "DefaultConnection")));
 
 builder.Services.AddScoped<ISaleRepository, SaleRepository>();
-builder.Services.AddScoped<ISaleFacade, SaleFacade>();
+builder.Services.AddScoped<SaleFacadeCore>();
+builder.Services.AddScoped<ISaleFacade>(
+    provider =>
+        new SaleLoggingDecorator(
+            provider.GetRequiredService<SaleFacadeCore>(),
+            provider.GetRequiredService<ILogger<SaleLoggingDecorator>>()));
 
 builder.Services
 .AddAuthentication(
