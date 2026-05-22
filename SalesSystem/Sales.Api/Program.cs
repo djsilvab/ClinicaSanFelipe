@@ -97,18 +97,19 @@ builder.Services
         };
 });
 
+var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>();
+
+if (allowedOrigins == null || allowedOrigins.Length == 0)
+{
+    throw new InvalidOperationException("Falta configurar la sección 'Cors:AllowedOrigins' en el appsettings.json.");
+}
+
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(
-        "FrontendPolicy",
-        policy =>
-        {
-            policy
-            .WithOrigins(
-                "http://localhost:4200")
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-        });
+    options.AddPolicy("FrontendPolicy", policy =>
+    {
+        policy.WithOrigins(allowedOrigins).AllowAnyHeader().AllowAnyMethod();
+    });
 });
 
 var app = builder.Build();
