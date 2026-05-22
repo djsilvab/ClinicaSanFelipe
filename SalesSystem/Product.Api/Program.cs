@@ -132,8 +132,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors(
-    "FrontendPolicy");
+app.UseCors("FrontendPolicy");
 
 app.UseAuthentication();
 
