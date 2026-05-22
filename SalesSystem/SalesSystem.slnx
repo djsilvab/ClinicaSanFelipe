@@ -6,5 +6,6 @@
     <Project Path="Auth.Api/Auth.Api.csproj" />
     <Project Path="Product.Api/Product.Api.csproj" />
     <Project Path="Purchase.Api/Purchase.Api.csproj" Id="3bdee017-96dc-42e6-a6db-70f721389e64" />
+    <Project Path="Sales.Api/Sales.Api.csproj" Id="7d415f74-d507-4efa-8353-b319a7cb44b1" />
   </Folder>
 </Solution>
