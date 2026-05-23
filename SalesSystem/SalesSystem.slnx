@@ -1,4 +1,5 @@
 <Solution>
+  <Folder Name="/DatabaseScripts/" />
   <Folder Name="/Docker/">
     <File Path="docker-compose.yml" />
   </Folder>

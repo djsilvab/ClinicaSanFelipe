@@ -94,16 +94,11 @@ builder.Services
 
 var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>();
 
-if (allowedOrigins == null || allowedOrigins.Length == 0)
-{
-    throw new InvalidOperationException("Falta configurar la sección 'Cors:AllowedOrigins' en el appsettings.json.");
-}
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("FrontendPolicy", policy =>
     {
-        policy.WithOrigins(allowedOrigins).AllowAnyHeader().AllowAnyMethod();
+        policy.WithOrigins(allowedOrigins ?? new[] { "http://localhost:4200" }).AllowAnyHeader().AllowAnyMethod();
     });
 });
 
