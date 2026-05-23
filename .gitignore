@@ -385,11 +385,11 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # VS Code files for those working on multiple tools
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+.vscode/
+#!.vscode/settings.json
+#!.vscode/tasks.json
+#!.vscode/launch.json
+#!.vscode/extensions.json
 *.code-workspace
 
 # Local History for Visual Studio Code
@@ -480,3 +480,67 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+inventory-frontend/node_modules/
+
+
+# ==========================================
+# REGLAS ADICIONALES PARA ANGULAR 19
+# ==========================================
+# Caché de compilación de Angular
+.angular/
+
+# Carpetas de salida de producción (Build output)
+# Nota: Si tu proyecto compila en dist/, ignoramos la raíz o la ruta específica
+**/dist/
+inventory-frontend/dist/
+inventory-frontend/prerender/
+
+# Archivos de diagnóstico, logs de npm y yarn
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Configuración local de entornos (Por si manejas llaves o endpoints locales)
+inventory-frontend/src/environments/environment.development.ts
+inventory-frontend/src/environments/environment.ts
+
+
+# ==========================================
+# REGLAS ADICIONALES PARA DOCKER
+# ==========================================
+# Ignorar datos persistentes de contenedores locales (p.ej. volúmenes de PostgreSQL)
+**/postgres-data/
+**/db-data/
+data/
+
+# Archivos de entorno con credenciales de Docker (¡Muy Importante!)
+*.env
+.env.*
+!.env.example
+
+
+# ==========================================
+# REGLAS ADICIONALES PARA .NET CORE / WSL2
+# ==========================================
+# Archivos de secretos de usuario de .NET Core (Evita subir contraseñas de BD)
+**/secrets.json
+**/.microsoft.dotnet.secretmanager/
+
+# Archivos generados al empaquetar herramientas de .NET
+.dotnet/
+
+# ==========================================
+# REGLAS ESPECÍFICAS PARA SQL SERVER Y DOCKER COMPOSE
+# ==========================================
+# Archivos de inicialización locales o dumps de bases de datos temporales
+*.sql.bak
+*.dacpac
+*.bcp
+
+# Si en algún momento decides mapear el volumen a una carpeta física en lugar de un volumen nombrado:
+**/mssql-data/
+
+# Archivos de configuración de usuario para ejecuciones múltiples en VS (Multi-project launch)
+SalesSystem/SalesSystem.slnLaunch.user
+*.slnLaunch.user
