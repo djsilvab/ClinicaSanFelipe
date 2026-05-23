@@ -1,0 +1,302 @@
+{
+  "info": {
+    "_postman_id": "5eee45e6-b915-47f1-9148-3e1f3b7b6962",
+    "name": "SalesSystem APIs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "3694314"
+  },
+  "item": [
+    {
+      "name": "Login",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var response = pm.response.json();\r",
+              "\r",
+              "pm.collectionVariables.set(\"token\",response.token);\r",
+              "\r",
+              "console.log(\"Token saved\");"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"userName\": \"admin\",\r\n    \"password\": \"Admin123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrlAuth}}/api/auth/login",
+          "host": [
+            "{{baseUrlAuth}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Register Product",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"nombre_producto\": \"Laptop Lenovo\",\r\n    \"nroLote\": \"LT_LN-001\",\r\n    \"costo\": 2500.45,\r\n    \"precioVenta\": 3200.89\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrlProduct}}/api/product",
+          "host": [
+            "{{baseUrlProduct}}"
+          ],
+          "path": [
+            "api",
+            "product"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Product",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"nombre_producto\": \"Laptop Dell i7\",\r\n    \"nroLote\": \"LT-100\",\r\n    \"costo\": 800,\r\n    \"precioVenta\": 350\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrlProduct}}/api/product",
+          "host": [
+            "{{baseUrlProduct}}"
+          ],
+          "path": [
+            "api",
+            "product"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Products",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrlProduct}}/api/product",
+          "host": [
+            "{{baseUrlProduct}}"
+          ],
+          "path": [
+            "api",
+            "product"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Register Purchase",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"details\": [\r\n        {\r\n            \"id_producto\": 2,\r\n            \"cantidad\": 10,\r\n            \"precio\": 100\r\n        }\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrlPurchase}}/api/purchase",
+          "host": [
+            "{{baseUrlPurchase}}"
+          ],
+          "path": [
+            "api",
+            "purchase"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Purchases",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrlPurchase}}/api/purchase",
+          "host": [
+            "{{baseUrlPurchase}}"
+          ],
+          "path": [
+            "api",
+            "purchase"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Register Sale",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"details\": [\r\n        {\r\n            \"id_producto\": 2,\r\n            \"cantidad\": 2,\r\n            \"precio\": 100\r\n        }\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrlSales}}/api/sale",
+          "host": [
+            "{{baseUrlSales}}"
+          ],
+          "path": [
+            "api",
+            "sale"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Sales",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrlSales}}/api/sale",
+          "host": [
+            "{{baseUrlSales}}"
+          ],
+          "path": [
+            "api",
+            "sale"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Kardex",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrlSales}}/api/kardex",
+          "host": [
+            "{{baseUrlSales}}"
+          ],
+          "path": [
+            "api",
+            "kardex"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrlAuth",
+      "value": "https://localhost:7226"
+    },
+    {
+      "key": "baseUrlProduct",
+      "value": "https://localhost:7051"
+    },
+    {
+      "key": "baseUrlPurchase",
+      "value": "https://localhost:7281"
+    },
+    {
+      "key": "baseUrlSales",
+      "value": "https://localhost:7171"
+    },
+    {
+      "key": "token",
+      "value": ""
+    }
+  ]
+}
