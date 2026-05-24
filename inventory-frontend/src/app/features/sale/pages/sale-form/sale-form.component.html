@@ -1,0 +1,92 @@
+<div class="purchase-page">
+    <div class="page-header">
+        <div>
+            <h1 class="page-title"> Registro de Venta </h1>
+            <p class="page-subtitle"> Gestiona ventas y control de stock </p>
+        </div>
+    </div>
+    <div class="purchase-card">
+        <form [formGroup]="form">
+            <div class="table-responsive">
+                <table class="table modern-table">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Stock</th>
+                            <th>Cantidad</th>
+                            <th>Precio Venta</th>
+                            <th>Subtotal</th>
+                            <th>IGV</th>
+                            <th>Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody formArrayName="details">
+                        <tr *ngFor="let item of details.controls; let i = index" [formGroupName]="i">
+                            <!-- Producto -->
+                            <td>
+                                <select class="form-select custom-select" formControlName="productId">
+                                    <option [ngValue]="null"> Seleccione </option>
+                                    <option *ngFor="let product of products" [value]="product.id">{{ product.name }}
+                                    </option>
+                                </select>
+                            </td>
+                            <!-- Stock -->
+                            <td>
+                                <span class="stock-badge" [ngClass]="{'stock-low':getAvailableStock(i) <= 3}">
+                                    {{ getAvailableStock(i) }}
+                                </span>
+                            </td>
+                            <!-- Cantidad -->
+                            <td>
+                                <input type="number" min="1" class="form-control" formControlName="quantity"
+                                    (change)="validateStock(i)" />
+                            </td>
+                            <!-- Precio -->
+                            <td>
+                                <input type="number" class="form-control" formControlName="price" readonly />
+                            </td>
+                            <!-- Subtotal -->
+                            <td>
+                                <strong> S/. {{ getSubtotal(i) | number:'1.2-2'}}
+                                </strong>
+                            </td>
+                            <!-- IGV -->
+                            <td>
+                                <span class="text-warning"> S/. {{ getIgv(i) | number:'1.2-2'}}
+                                </span>
+                            </td>
+                            <!-- Total -->
+                            <td>
+                                <strong class="text-success"> S/. {{ getTotal(i) | number:'1.2-2' }}
+                                </strong>
+                            </td>
+                            <!-- Eliminar -->
+                            <td>
+                                <button type="button" class="btn-delete" (click)="removeRow(i)"> ✕ </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="purchase-footer">
+                <button type="button" class="btn-outline-custom" (click)="addRow()"> + Agregar Producto </button>
+                <div class="summary-card">
+                    <div class="summary-row">
+                        <span> Subtotal </span>
+                        <strong> S/. {{ getGlobalSubtotal() | number:'1.2-2' }} </strong>
+                    </div>
+                    <div class="summary-row">
+                        <span> IGV (18%) </span>
+                        <strong> S/. {{ getGlobalIgv() | number:'1.2-2' }} </strong>
+                    </div>
+                    <div class="summary-row total-row">
+                        <span> Total </span>
+                        <strong> S/. {{ getGlobalTotal() | number:'1.2-2' }} </strong>
+                    </div>
+                    <button type="button" class="btn-save-sale" (click)="saveSale()"> Guardar Venta </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

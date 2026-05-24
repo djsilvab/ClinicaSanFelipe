@@ -1,0 +1,132 @@
+<div class="movement-modal">
+
+    <div class="modal-header-custom">
+
+        <div>
+
+            <h2 class="modal-title">
+                Movimientos del Producto
+            </h2>
+
+            <p class="modal-subtitle">
+                Historial de entradas y salidas
+            </p>
+
+        </div>
+
+        <button class="btn-close-modal" (click)="close()">
+
+            ✕
+
+        </button>
+
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table movement-table">
+
+            <thead>
+
+                <tr>
+                    <th>Fecha Registro</th>
+                    <th>Movimiento</th>
+                    <th>Cantidad</th>
+                    <th>Documento</th>
+                    <th>Stock</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr *ngFor="
+          let item
+          of movements">
+
+                    <td>
+
+                        {{
+                        item.fecha
+                        | date:
+                        'dd/MM/yyyy HH:mm'
+                        }}
+
+                    </td>
+
+                    <td>
+
+                        <span class="movement-badge" [ngClass]="{
+
+                'entry':
+                item.tipoMovimiento
+                === 'Entrada',
+
+                'exit':
+                item.tipoMovimiento
+                === 'Salida'
+
+              }">
+
+                            {{
+                            item.tipoMovimiento
+                            }}
+
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        {{ item.cantidad }}
+
+                    </td>
+
+                    <td>
+
+                        #{{ item.documentoOrigen }}
+
+                    </td>
+
+                    <td>
+
+                        <strong>
+
+                            {{
+                            item.stockActual
+                            }}
+
+                        </strong>
+
+                    </td>
+
+                </tr>
+
+                <tr *ngIf="
+          movements.length === 0">
+
+                    <td colspan="5" class="empty-state">
+
+                        No existen movimientos
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <div class="modal-footer-custom">
+
+        <button class="btn-cancel" (click)="close()">
+
+            Cerrar
+
+        </button>
+
+    </div>
+
+</div>

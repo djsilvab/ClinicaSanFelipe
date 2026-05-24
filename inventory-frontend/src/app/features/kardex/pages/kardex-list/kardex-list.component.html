@@ -1,1 +1,52 @@
-<p>kardex-list works!</p>
+<div class="purchase-page">
+    <div class="page-header">
+        <div>
+            <h1 class="page-title"> Kardex de Productos </h1>
+            <p class="page-subtitle"> Control de stock y movimientos </p>
+        </div>
+    </div>
+    <div class="purchase-card">
+        <div class="table-responsive">
+            <table class="table modern-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Producto</th>
+                        <th>Stock Actual</th>
+                        <th>Costo</th>
+                        <th>Precio Venta</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="
+            let product
+            of products">
+                        <td>
+                            {{ product.id }}
+                        </td>
+                        <td>
+                            {{ product.name }}
+                        </td>
+                        <td>
+                            <span class="stock-badge">
+                                {{ product.stock }}
+                            </span>
+                        </td>
+                        <td> S/. {{ product.cost
+                            | number:'1.2-2'
+                            }}
+                        </td>
+                        <td> S/. {{ product.salePrice
+                            | number:'1.2-2'
+                            }}
+                        </td>
+                        <td>
+                            <button class="btn-view" (click)="openMovements(product.id)"> 🔍 Ver movimientos </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

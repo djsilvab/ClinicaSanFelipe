@@ -6,5 +6,6 @@ export interface Product {
   registerDate?: string;
   cost: number;
   salePrice: number;
+  stock?: number;
 
 }
