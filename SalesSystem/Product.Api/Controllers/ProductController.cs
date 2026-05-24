@@ -11,47 +11,33 @@ namespace Product.Api.Controllers;
 public class ProductController
     : ControllerBase
 {
-    private readonly IProductService
-        _service;
+    private readonly IProductService _service;
 
-    public ProductController(
-        IProductService service)
+    public ProductController(IProductService service)
     {
         _service = service;
     }
 
     [HttpPost]
-    public async Task<IActionResult>
-        Create(
-        CreateProductDto dto)
+    public async Task<IActionResult> Create(CreateProductDto dto)
     {
-        var result =
-            await _service
-            .CreateAsync(dto);
+        var result = await _service.CreateAsync(dto);
 
         return Ok(result);
     }
 
     [HttpGet]
-    public async Task<IActionResult>
-        GetAll()
+    public async Task<IActionResult> GetAll()
     {
-        var result =
-            await _service
-            .GetAllAsync();
+        var result = await _service.GetAllAsync();
 
         return Ok(result);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult>
-        Update(
-        int id,
-        UpdateProductDto dto)
+    public async Task<IActionResult> Update(int id, UpdateProductDto dto)
     {
-        var result =
-            await _service
-            .UpdateAsync(id, dto);
+        var result = await _service.UpdateAsync(id, dto);
 
         if (result == null)
         {
@@ -62,19 +48,15 @@ public class ProductController
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult>
-        Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        var deleted =
-            await _service
-            .DeleteAsync(id);
+        var deleted = await _service.DeleteAsync(id);
 
         if (!deleted)
         {
             return NotFound();
         }
 
-        return Ok(
-            "Producto eliminado");
+        return Ok("Producto eliminado");
     }
 }

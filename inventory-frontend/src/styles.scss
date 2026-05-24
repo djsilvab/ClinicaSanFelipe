@@ -2,3 +2,14 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.custom-dialog .mat-mdc-dialog-container {
+  border-radius: 28px !important;
+  overflow: hidden;
+  padding: 0 !important;
+}
+
+.custom-dialog .mdc-dialog__surface {
+  border-radius: 28px !important;
+  box-shadow: 0 20px 45px rgba(0,0,0,.18) !important;
+}

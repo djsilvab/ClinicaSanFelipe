@@ -10,62 +10,44 @@ namespace Auth.Api.Controllers;
 [ApiController]
 public class AuthController : ControllerBase
 {
-    private readonly IUserRepository
-        _userRepository;
+    private readonly IUserRepository _userRepository;
 
-    private readonly JwtTokenGenerator
-        _jwtTokenGenerator;
+    private readonly JwtTokenGenerator _jwtTokenGenerator;
 
     public AuthController(
         IUserRepository userRepository,
         JwtTokenGenerator jwtTokenGenerator)
     {
-        _userRepository =
-            userRepository;
+        _userRepository = userRepository;
 
-        _jwtTokenGenerator =
-            jwtTokenGenerator;
+        _jwtTokenGenerator = jwtTokenGenerator;
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult>
-        Login(
-        LoginRequestDto request)
+    public async Task<IActionResult> Login(LoginRequestDto request)
     {
-        var user =
-            await _userRepository
-            .GetByUserNameAsync(
-                request.UserName);
+        var user = await _userRepository.GetByUserNameAsync(request.UserName);
 
         if (user == null)
         {
-            return Unauthorized(
-                "Usuario inválido");
+            return Unauthorized("Usuario inválido");
         }
 
         //var user_PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
 
-        bool isValidPassword =
-            BCrypt.Net.BCrypt.Verify(
-                request.Password,
-                user.PasswordHash);
+        bool isValidPassword = BCrypt.Net.BCrypt.Verify(request.Password,user.PasswordHash);
 
         if (!isValidPassword)
         {
-            return Unauthorized(
-                "Password inválido");
+            return Unauthorized("Password inválido");
         }
 
-        var result =
-            _jwtTokenGenerator
-            .GenerateToken(user);
+        var result = _jwtTokenGenerator.GenerateToken(user);
 
-        return Ok(
-            new LoginResponseDto
-            {
-                Token = result.token,
-                Expiration =
-                    result.expiration
-            });
+        return Ok(new LoginResponseDto
+                {
+                    Token = result.token,
+                    Expiration = result.expiration
+                });
     }
 }

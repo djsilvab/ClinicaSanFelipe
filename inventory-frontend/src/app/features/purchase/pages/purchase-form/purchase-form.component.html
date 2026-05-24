@@ -1,1 +1,78 @@
-<p>purchase-form works!</p>
+<div class="purchase-page">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title"> Registro Compra </h1>
+      <p class="page-subtitle"> Agrega productos a la compra </p>
+    </div>
+    <button class="btn-product" (click)="openProductModal()"> + Nuevo Producto </button>
+  </div>
+  <div class="purchase-card">
+    <form [formGroup]="form">
+      <div class="table-responsive">
+        <table class="table modern-table">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Cantidad</th>
+              <th>Precio</th>
+              <th>Subtotal</th>
+              <th>IGV</th>
+              <th>Total</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody formArrayName="details">
+            <tr *ngFor="let item of details.controls; let i = index" [formGroupName]="i">
+              <td>
+                <select class="form-select" formControlName="productId">
+                  <option [ngValue]="null"> Seleccione </option>
+                  <option *ngFor="let product of products" [value]="product.id">
+                    {{ product.name }}
+                  </option>
+                </select>
+              </td>
+              <td>
+                <input type="number" class="form-control" formControlName="quantity">
+              </td>
+              <td>
+                <input type="number" class="form-control" formControlName="price">
+              </td>
+              <td>
+                <strong> S/. {{ getSubtotal(i) | number:'1.2-2'}} </strong>
+              </td>
+              <td> S/. {{ getIgv(i) | number:'1.2-2' }}
+              </td>
+              <td>
+                <strong class="text-success"> S/. {{ getRowTotal(i) | number:'1.2-2' }}</strong>
+              </td>
+              <td>
+                <button type="button" class="btn btn-danger" (click)="removeRow(i)"> X </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="purchase-footer">
+        <button type="button" class="btn btn-outline-primary" (click)="addRow()"> + Agregar Producto </button>
+        <div class="summary-card">
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <strong> S/. {{ getPurchaseSubtotal() | number:'1.2-2' }}
+            </strong>
+          </div>
+          <div class="summary-row">
+            <span>IGV (18%)</span>
+            <strong> S/. {{ getPurchaseIgv() | number:'1.2-2'}}
+            </strong>
+          </div>
+          <div class="summary-row total-row">
+            <span>Total</span>
+            <strong> S/. {{ getPurchaseTotal() | number:'1.2-2' }}
+            </strong>
+          </div>
+          <button type="button" class="btn btn-success w-100 mt-3" (click)="savePurchase()"> Guardar Compra </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
