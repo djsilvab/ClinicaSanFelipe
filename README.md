@@ -185,7 +185,7 @@ src/app
 
 ## Frontend
 
-- Angular 20
+- Angular 19
 - TypeScript
 - Angular Material
 - Bootstrap 5
