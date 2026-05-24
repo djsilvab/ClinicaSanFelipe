@@ -1,0 +1,17 @@
+<header class="top-navbar">
+    <div class="navbar-brand">
+        <div class="brand-icon"> 🏪 </div>
+        <div>
+            <h2> Sales System </h2>
+            <small> Gestión Comercial </small>
+        </div>
+    </div>
+    <nav class="navbar-links">
+        <a routerLink="/purchase" routerLinkActive="active-link"> 🛒 Compras </a>
+        <a routerLink="/sale" routerLinkActive="active-link"> 💰 Ventas </a>
+        <a routerLink="/kardex" routerLinkActive="active-link"> 📦 Kardex </a>
+    </nav>
+    <div class="navbar-user">
+        <button class="logout-btn" (click)="logout()"> 🚪 Logout </button>
+    </div>
+</header>
